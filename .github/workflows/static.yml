@@ -2,7 +2,8 @@ name: Deploy static content to Pages
 
 on:
   push:
-    branches: ["main"] # Triggers on push to main
+    branches: ["main"]
+  workflow_dispatch: # This lets you run it manually for testing
 
 permissions:
   contents: read
@@ -13,19 +14,19 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps: deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Uploads the entire root directory
+          path: '.' # Uploads your index.html from the root
 
       - name: Deploy to GitHub Pages
         id: deployment
