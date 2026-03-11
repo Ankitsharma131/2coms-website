@@ -1,9 +1,9 @@
-name: Deploy static content to Pages
+name: Deploy Talent Outsourcing Site to Pages
 
 on:
   push:
     branches: ["main"]
-  workflow_dispatch: # This lets you run it manually for testing
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -14,6 +14,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
+      # This will dynamically point to your new project URL
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +27,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: '.' # Uploads your index.html from the root
+          path: '.' 
 
       - name: Deploy to GitHub Pages
         id: deployment
